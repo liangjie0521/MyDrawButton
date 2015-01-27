@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
+import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -24,7 +26,7 @@ import android.view.View;
 @SuppressLint({ "DrawAllocation", "HandlerLeak" })
 public class MyDrawButton extends View {
 	private Bitmap leftBitmap, rightBitmap;
-	private String modeFirStr = "悄悄话模式";// 模式一文字
+	private String modeFirStr = "阅后即焚";// 模式一文字
 	private String modeSecStr = "普通模式";// 模式二文字
 	private int mode = 1;
 	private Resources resources;
@@ -84,8 +86,8 @@ public class MyDrawButton extends View {
 
 	private void initView(Context context) {
 		resources = getResources();
-		leftBitmap = BitmapFactory.decodeResource(resources, R.drawable.chat_drawer_private_handle_l);
-		rightBitmap = BitmapFactory.decodeResource(resources, R.drawable.chat_drawer_private_handle_r);
+		leftBitmap = BitmapFactory.decodeResource(resources, R.drawable.open_left);
+		rightBitmap = BitmapFactory.decodeResource(resources, R.drawable.right_close);
 		paint = new Paint();
 		width = PhoneUtil.getDisplayWidth(context);
 
@@ -110,17 +112,24 @@ public class MyDrawButton extends View {
 			// 绘制滑动长度颜色
 			Rect bg = new Rect(rect.left, rect.top, (int) offset, height);
 			// TODO 设置滑动长度颜色，可以自由设置
-			paint.setColor(Color.BLACK);
+			paint.setColor(getResources().getColor(R.color.grey_color));
 			canvas.drawRect(bg, paint);
 			// 绘制图片
-			canvas.drawBitmap(leftBitmap, offset, 0, paint);
+			// canvas.drawBitmap(leftBitmap, offset, 0, paint);
+			Rect dst = new Rect((int) offset, 0, (int) (offset + (13 * density)), height);
+			canvas.drawBitmap(leftBitmap, null, dst, paint);
 			// 画扫描框下面的字
 			paint.setColor(Color.WHITE);
 			paint.setTextSize(TEXT_SIZE * density);
 			// paint.setAlpha(0x40);
 			paint.setTypeface(Typeface.SANS_SERIF);
-			float textWidth = paint.measureText(modeFirStr);
-			canvas.drawText(modeFirStr, offset - (width + textWidth) / 2, rect.top + 76, paint);
+			paint.setTextAlign(Align.CENTER);
+			FontMetrics fontMetrics = paint.getFontMetrics();
+			// 计算文字高度
+			float fontHeight = fontMetrics.bottom - fontMetrics.top;
+			// 计算文字baseline
+			float textBaseY = height - (height - fontHeight) / 2 - fontMetrics.bottom;
+			canvas.drawText(modeFirStr, offset - (width) / 2, textBaseY, paint);
 		} else if (mode == 2) // 向左滑动
 		{
 			Rect rect = new Rect((int) (width + offset) - rightBitmap.getWidth(), 0, width, height);
@@ -129,18 +138,22 @@ public class MyDrawButton extends View {
 			// 绘制滑动长度颜色
 			Rect bg = new Rect((int) (width + offset), rect.top, rect.right, height);
 			// TODO 设置滑动长度颜色，可以自由设置
-			paint.setColor(Color.BLACK);
-			paint.setColor(Color.BLACK);
+			paint.setColor(getResources().getColor(R.color.grey_color));
 			canvas.drawRect(bg, paint);
 			// 绘制
-			canvas.drawBitmap(rightBitmap, (width + offset) - rightBitmap.getWidth(), 0, paint);
+			Rect dst = new Rect((int) ((width + offset) - 13 * density), 0, (int) (width + offset), height);
+			canvas.drawBitmap(rightBitmap, null, dst, paint);
 			// 画扫描框下面的字
 			paint.setColor(Color.WHITE);
 			paint.setTextSize(TEXT_SIZE * density);
 			// paint.setAlpha(0x40);
 			paint.setTypeface(Typeface.SANS_SERIF);
-			float textWidth = paint.measureText(modeSecStr);
-			canvas.drawText(modeSecStr, width + offset + (width - textWidth) / 2, rect.top + 76, paint);
+			FontMetrics fontMetrics = paint.getFontMetrics();
+			// 计算文字高度
+			float fontHeight = fontMetrics.bottom - fontMetrics.top;
+			// 计算文字baseline
+			float textBaseY = height - (height - fontHeight) / 2 - fontMetrics.bottom;
+			canvas.drawText(modeSecStr, width + offset + (width) / 2, textBaseY, paint);
 		} else // 默认显示
 		{
 			// 绘制
@@ -163,14 +176,14 @@ public class MyDrawButton extends View {
 			startX = event.getX();
 			if (mode == 1) // 从左往右滑动
 			{
-				if (event.getX() > leftBitmap.getWidth())// 没有按住图标，不往下执行，直接返回
+				if (event.getX() > 23 * density)// 没有按住图标，不往下执行，直接返回
 				{
 					return super.onTouchEvent(event);
 				}
 			}
 			if (mode == 2) // 从右往左滑动
 			{
-				if (event.getX() < width + offset - rightBitmap.getWidth()) // 没有按住图标，不往下执行。直接返回
+				if (event.getX() < width + offset - 23 * density) // 没有按住图标，不往下执行。直接返回
 				{
 					return super.onTouchEvent(event);
 				}

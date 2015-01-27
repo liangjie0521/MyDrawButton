@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/expression_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="1dp"
+    android:layout_marginTop="1dp"
+    android:background="@android:color/white"
+    android:visibility="gone" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/expressionViewpage"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="45dp" >
+    </android.support.v4.view.ViewPager>
+
+    <com.liangjie.testdrawbutton.CirclePageIndicator
+        android:id="@+id/circle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:padding="5dip" />
+
+    <LinearLayout
+        android:id="@+id/hsv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/expression1"
+            android:layout_width="60dp"
+            android:layout_height="36dp"
+            android:background="@drawable/emoij_color_sel"
+            android:scaleType="center"
+            android:src="@drawable/emotionstore_emoji_icon" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_above="@id/hsv"
+        android:background="@color/message_list_diver_line" />
+
+</RelativeLayout>

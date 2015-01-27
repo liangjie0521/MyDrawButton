@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="message_list_diver_line">#b0b0b0</color>
+    <color name="pressed_color">#ffffff</color>
+    <color name="send_text_color">#fefefe</color>
+    <color name="msg_edit_color">#5a5a58</color>
+    <color name="grey_color">#9b9b9b</color>
+
+</resources>

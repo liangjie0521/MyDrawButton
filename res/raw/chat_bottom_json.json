@@ -1,0 +1,36 @@
+{
+	"list":[
+		
+		{
+			"resId":"send_card_sel",
+			"id":"card",
+			"name":"名片",
+			"name_en":"Name Card"
+		},
+		{
+			"resId":"upload_pic_sel",
+			"id":"pic",
+			"name":"图片",
+			"name_en":"Picture"
+		},
+		{
+			"resId":"camera_sel",
+			"id":"camera",
+			"name":"相机",
+			"name_en":"Camera"
+		},
+		{
+			"resId":"send_location_icon_sel",
+			"id":"location",
+			"name":"位置",
+			"name_en":"Location"
+		},
+		{
+			"resId":"burn_img_sel",
+			"id":"burn",
+			"name":"阅后即焚",
+			"name_en":"Burn"
+		}
+		
+	]
+}

@@ -3,14 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <EditText
+    <com.liangjie.testdrawbutton.IMBottomView
         android:layout_width="fill_parent"
-        android:layout_height="38dp" />
-
-    <com.liangjie.testdrawbutton.MyDrawButton
-        android:id="@+id/button"
-        android:layout_width="fill_parent"
-        android:layout_height="38dp" >
-    </com.liangjie.testdrawbutton.MyDrawButton>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+    </com.liangjie.testdrawbutton.IMBottomView>
 
 </RelativeLayout>
